@@ -19,7 +19,7 @@ module.exports = function (grunt) {
                 ' * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.\n' +
                 ' */\n'
         },
-        component_name: 'sofa.componentName',
+        component_name: 'sofa.stateResolverService',
         component_sass_name: grunt.file.readJSON('bower.json').name,
         build_dir: 'dist',
 

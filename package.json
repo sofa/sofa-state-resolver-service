@@ -1,8 +1,8 @@
 {
-  "name": "sofa-component-name",
+  "name": "sofa-state-resolver-service",
   "version": "0.0.0",
   "description": "Sofa Web SDK component.",
-  "main": "dist/sofa.componentName.js",
+  "main": "dist/sofa.stateResolverService.js",
   "homepage": "http://www.sofa.io",
   "scripts": {
     "test": "bower install && grunt build"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sofa/sofa-component-name"
+    "url": "https://github.com/sofa/sofa-state-resolver-service"
   },
   "keywords": [
     "sofa",
@@ -25,7 +25,7 @@
   "author": "Pascal Precht <pascal@couchcommerce.com>",
   "license": "GPL",
   "bugs": {
-    "url": "https://github.com/sofa/sofa-component-name/issues"
+    "url": "https://github.com/sofa/sofa-state-resolver-service/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.3",

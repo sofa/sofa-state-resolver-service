@@ -1,5 +1,5 @@
 {
-  "name": "sofa-component-name",
+  "name": "sofa-state-resolver-service",
   "version": "0.0.0",
   "homepage": "http://www.sofa.io",
   "authors": [
@@ -9,7 +9,7 @@
     "sofa-core": "~0.6.1"
   },
   "description": "Sofa Web SDK component.",
-  "main": "dist/sofa.componentName.js",
+  "main": "dist/sofa.stateResolverService.js",
   "keywords": [
     "sofa",
     "sofa.io",
