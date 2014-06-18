@@ -1,12 +1,12 @@
 'use strict';
 /* global sofa */
 
-describe('sofa.componentName', function () {
+describe('sofa.StateResolverService', function () {
 
     var componentName;
 
     beforeEach(function () {
-        componentName = new sofa.ComponentName();
+        componentName = new sofa.StateResolverService();
     });
 
     it('should be defined', function () {
