@@ -10,6 +10,11 @@ module.exports = function (karma) {
          */
         files: [
             'node_modules/sofa-core/dist/sofa.core.js',
+            'node_modules/sofa-http-service/dist/sofa.httpService.js',
+            'node_modules/sofa-q-service/dist/sofa.qService.js',
+            'node_modules/sofa-testing/mocks/sofa.config.mock.js',
+            'node_modules/sofa-testing/mocks/sofa.httpService.mock.js',
+            'bower_components/jasmine.async/src/jasmine.async.js',
             'src/**/*.js',
             'test/**/*.spec.js'
         ],

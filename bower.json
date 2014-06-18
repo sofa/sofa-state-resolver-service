@@ -17,5 +17,8 @@
     "sdk",
     "core"
   ],
-  "license": "GPL"
+  "license": "GPL",
+  "devDependencies": {
+    "jasmine.async": "~0.1.0"
+  }
 }
