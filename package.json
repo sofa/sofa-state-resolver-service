@@ -1,6 +1,6 @@
 {
   "name": "sofa-state-resolver-service",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Sofa Web SDK component.",
   "main": "dist/sofa.stateResolverService.js",
   "homepage": "http://www.sofa.io",
