@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-service - v0.0.0 - 2014-06-18
+ * sofa-state-resolver-service - v0.1.0 - 2014-06-20
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -23,6 +23,7 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
         statesEndpoint  = configService.get('apiEndpoint') + 'states',
         storeCode       = configService.get('storeCode'),
+        useShopUrls     = configService.get('useShopUrls'),
         states          = {};
 
     /**
@@ -60,6 +61,13 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     */
     self.resolveState = function (url) {
         var deferred = $q.defer();
+
+        // in legacy mode we need to remove the leading slash that comes
+        // from the url because on the serverside we are only dealing with
+        // keys (e.g. some-crazy-product) and not with paths.s
+        if (!useShopUrls && url.charAt(0) === '/') {
+            url = url.substr(1);
+        }
 
         if (states[url]) {
             deferred.resolve(states[url]);

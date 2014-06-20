@@ -13,6 +13,7 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
         statesEndpoint  = configService.get('apiEndpoint') + 'states',
         storeCode       = configService.get('storeCode'),
+        useShopUrls     = configService.get('useShopUrls'),
         states          = {};
 
     /**
@@ -50,6 +51,13 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     */
     self.resolveState = function (url) {
         var deferred = $q.defer();
+
+        // in legacy mode we need to remove the leading slash that comes
+        // from the url because on the serverside we are only dealing with
+        // keys (e.g. some-crazy-product) and not with paths.s
+        if (!useShopUrls && url.charAt(0) === '/') {
+            url = url.substr(1);
+        }
 
         if (states[url]) {
             deferred.resolve(states[url]);
