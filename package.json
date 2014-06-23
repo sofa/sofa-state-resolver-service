@@ -49,7 +49,8 @@
     "karma-jasmine": "~0.1.5",
     "load-grunt-tasks": "~0.2.1",
     "lodash": "~2.4.1",
-    "sofa-testing": "^0.5.0"
+    "sofa-testing": "^0.5.0",
+    "grunt-deploy-semver": "^0.3.0"
   },
   "dependencies": {
     "sofa-core": "^0.6.1",
