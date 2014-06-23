@@ -1,3 +1,12 @@
+<a name="0.2.0"></a>
+## 0.2.0 (2014-06-23)
+
+
+#### Features
+
+* **grunt:** better deploying ([69aafb58](https://github.com/sofa/sofa-state-resolver-service/commit/69aafb58f451979e21e995c8c559562655e20291))
+
+
 <a name="0.1.1"></a>
 ### 0.1.1 (2014-06-20)
 

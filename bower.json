@@ -1,24 +1,24 @@
 {
-  "name": "sofa-state-resolver-service",
-  "version": "0.1.1",
-  "homepage": "http://www.sofa.io",
-  "authors": [
-    "Pascal Precht <pascal@couchcommerce.com>"
-  ],
-  "dependencies": {
-    "sofa-core": "~0.6.1"
-  },
-  "description": "Sofa Web SDK component.",
-  "main": "dist/sofa.stateResolverService.js",
-  "keywords": [
-    "sofa",
-    "sofa.io",
-    "web",
-    "sdk",
-    "core"
-  ],
-  "license": "GPL",
-  "devDependencies": {
-    "jasmine.async": "~0.1.0"
-  }
+    "name": "sofa-state-resolver-service",
+    "version": "0.2.0",
+    "homepage": "http://www.sofa.io",
+    "authors": [
+        "Pascal Precht <pascal@couchcommerce.com>"
+    ],
+    "dependencies": {
+        "sofa-core": "~0.6.1"
+    },
+    "description": "Sofa Web SDK component.",
+    "main": "dist/sofa.stateResolverService.js",
+    "keywords": [
+        "sofa",
+        "sofa.io",
+        "web",
+        "sdk",
+        "core"
+    ],
+    "license": "GPL",
+    "devDependencies": {
+        "jasmine.async": "~0.1.0"
+    }
 }
