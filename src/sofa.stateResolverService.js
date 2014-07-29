@@ -11,7 +11,7 @@
  */
 sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
-        statesEndpoint  = configService.get('apiEndpoint') + 'states',
+        stateResolver   = new sofa.StateResolver($q, $http, configService),
         storeCode       = configService.get('storeCode'),
         useShopUrls     = configService.get('useShopUrls'),
         states          = {};
@@ -63,14 +63,9 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
             deferred.resolve(states[url]);
         }
         else {
-
-            $http({
-                method: 'POST',
-                url: statesEndpoint,
-                data: {
-                    storeCode: storeCode,
-                    url: url
-                }
+            stateResolver({
+                storeCode: storeCode,
+                url: url
             })
             .then(function (response) {
                 deferred.resolve(response.data);

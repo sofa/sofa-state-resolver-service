@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-service - v0.2.0 - 2014-06-23
+ * sofa-state-resolver-service - v0.2.0 - 2014-07-29
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -7,6 +7,28 @@
  * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.
  */
 ;(function (sofa, undefined) {
+
+'use strict';
+/* global sofa */
+/**
+ * @name StateResolver
+ * @namespace sofa.StateResolver
+ *
+ * @description
+ * `StateResolver` is used within the`StateResolverService` to resolve a state
+ * for a given url. It can easily be overwritten to swap out the resolve strategy.
+ */
+sofa.define('sofa.StateResolver', function ($http, $q, configService) {
+    var STATES_ENDPOINT = configService.get('apiEndpoint') + 'states';
+
+    return function (config) {
+        return $http({
+                method: 'POST',
+                url: STATES_ENDPOINT,
+                data: config
+            });
+    };
+});
 
 'use strict';
 /* global sofa */
@@ -21,7 +43,7 @@
  */
 sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
-        statesEndpoint  = configService.get('apiEndpoint') + 'states',
+        stateResolver   = new sofa.StateResolver($q, $http, configService),
         storeCode       = configService.get('storeCode'),
         useShopUrls     = configService.get('useShopUrls'),
         states          = {};
@@ -73,14 +95,9 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
             deferred.resolve(states[url]);
         }
         else {
-
-            $http({
-                method: 'POST',
-                url: statesEndpoint,
-                data: {
-                    storeCode: storeCode,
-                    url: url
-                }
+            stateResolver({
+                storeCode: storeCode,
+                url: url
             })
             .then(function (response) {
                 deferred.resolve(response.data);
