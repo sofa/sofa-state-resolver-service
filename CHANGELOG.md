@@ -1,3 +1,12 @@
+<a name="0.2.2"></a>
+### 0.2.2 (2014-07-31)
+
+
+#### Bug Fixes
+
+* **stateResolver:** order parameter correctly ([c8871756](https://github.com/sofa/sofa-state-resolver-service/commit/c8871756f152ea3fb92ee28f35efa2fbf89309e6))
+
+
 <a name="0.2.1"></a>
 ### 0.2.1 (2014-07-29)
 

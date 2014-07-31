@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-service - v0.2.1 - 2014-07-29
+ * sofa-state-resolver-service - v0.2.2 - 2014-07-31
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -18,7 +18,7 @@
  * `StateResolver` is used within the`StateResolverService` to resolve a state
  * for a given url. It can easily be overwritten to swap out the resolve strategy.
  */
-sofa.define('sofa.StateResolver', function ($http, $q, configService) {
+sofa.define('sofa.StateResolver', function ($q, $http, configService) {
     var STATES_ENDPOINT = configService.get('apiEndpoint') + 'states';
 
     return function (config) {
