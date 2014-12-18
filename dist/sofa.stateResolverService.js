@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-service - v0.2.2 - 2014-07-31
+ * sofa-state-resolver-service - v0.2.2 - 2014-12-18
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -89,6 +89,9 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
         // keys (e.g. some-crazy-product) and not with paths.s
         if (!useShopUrls && url.charAt(0) === '/') {
             url = url.substr(1);
+        }
+        else if (url.indexOf('/!/') === 0) {
+            url = url.substr(2);
         }
 
         if (states[url]) {

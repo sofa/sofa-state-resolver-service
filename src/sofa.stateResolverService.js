@@ -58,6 +58,9 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
         if (!useShopUrls && url.charAt(0) === '/') {
             url = url.substr(1);
         }
+        else if (url.indexOf('/!/') === 0) {
+            url = url.substr(2);
+        }
 
         if (states[url]) {
             deferred.resolve(states[url]);
