@@ -1,17 +1,18 @@
-# Sofa Checkout Service [![Build Status](https://travis-ci.org/sofa/sofa-checkout-service.png?branch=master)](https://travis-ci.org/sofa/sofa-checkout-service)
+# Angular Sofa Template Code
 
-This is the Sofa Checkout Service component. It handles checkout logic.
+Angular template code component
 
 ## Installation
 
 Via npm:
 
 ```sh
-$ npm install sofa-state-resolver-service
+$ npm install angular-sofa-template-code
 ```
 
 Via Bower:
 
 ```sh
-$ bower install sofa-state-resolver-service
+$ bower install angular-sofa-template-code
 ```
+

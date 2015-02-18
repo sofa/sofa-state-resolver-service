@@ -1,13 +1,12 @@
 /**
- * sofa-state-resolver-service - v0.2.2 - 2014-07-31
+ * sofa-state-resolver-servicew - v0.3.0 - Wed Feb 18 2015 11:55:33 GMT+0100 (CET)
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
- * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO).
+ * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO)
  * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.
  */
-;(function (sofa, undefined) {
-
+;(function (sofa, document, undefined) {
 'use strict';
 /* global sofa */
 /**
@@ -112,5 +111,4 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     return self;
 
 });
-
-}(sofa));
+}(sofa, document));

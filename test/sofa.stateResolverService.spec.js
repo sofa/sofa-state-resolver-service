@@ -1,6 +1,5 @@
 'use strict';
 /* global sofa */
-/* global AsyncSpec */
 
 describe('sofa.StateResolverService', function () {
 
@@ -9,7 +8,6 @@ describe('sofa.StateResolverService', function () {
         configService,
         httpService;
 
-    var async = new AsyncSpec(this);
 
     beforeEach(function () {
         configService        = new sofa.ConfigService();
@@ -22,8 +20,7 @@ describe('sofa.StateResolverService', function () {
         expect(stateResolverService).toBeDefined();
     });
 
-    async.it('should resolve state', function (done) {
-
+    it('should resolve state', function (done) {
         var state = {
             url: 'some-url'
         };
@@ -36,5 +33,20 @@ describe('sofa.StateResolverService', function () {
                 expect(resolvedState).toEqual(state);
                 done();
             });
+    });
+    
+});
+
+
+describe('sofa.StateResolverService.angular', function() {
+    var StateResolverService, StateResolver;
+    beforeEach(module('sofa.stateResolverService'));
+    beforeEach(inject(function($injector) {
+        StateResolverService = $injector.get('stateResolverService');
+        StateResolver = $injector.get('stateResolver');
+    }));
+    it('should exists', function() {
+        expect(StateResolverService).toBeDefined();
+        expect(StateResolver).toBeDefined();
     });
 });
