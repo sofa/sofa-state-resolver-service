@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-servicew - v0.3.0 - Wed Feb 18 2015 11:55:33 GMT+0100 (CET)
+ * sofa-state-resolver-service - v0.4.1 - Wed Feb 18 2015 12:36:17 GMT+0100 (CET)
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
