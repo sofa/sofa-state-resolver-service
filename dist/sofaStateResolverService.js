@@ -1,5 +1,5 @@
 /**
- * sofa-state-resolver-service - v0.4.1 - Wed Feb 18 2015 12:36:17 GMT+0100 (CET)
+ * sofa-state-resolver-service - v0.4.2 - Thu Feb 19 2015 14:17:46 GMT+0100 (CET)
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -18,13 +18,79 @@
  * for a given url. It can easily be overwritten to swap out the resolve strategy.
  */
 sofa.define('sofa.StateResolver', function ($q, $http, configService) {
-    var STATES_ENDPOINT = configService.get('apiEndpoint') + 'states';
+    var STATES_ENDPOINT = configService.get('esEndpoint') + '_search?&size=1';
 
-    return function (config) {
+    var getCurrentCategoryId = function (routes, url) {
+        var routeObj = sofa.Util.find(routes, function (route) {
+            return route.productUrl === url;
+        });
+        return routeObj.categoryId;
+    };
+
+    return function (urlToResolve) {
+
+        var query = {
+            query: {
+                filtered: {
+                    filter: {
+                        or: [
+                            // category
+                            {
+                                term: {'route': urlToResolve}
+                            },
+                            // product
+                            {
+                                nested: {
+                                    path: 'routes',
+                                    filter: {
+                                        term: {'routes.productUrl': urlToResolve}
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        };
+
         return $http({
-                method: 'POST',
-                url: STATES_ENDPOINT,
-                data: config
+            method: 'POST',
+            url: STATES_ENDPOINT,
+            data: query
+        })
+            .then(function (data) {
+                var hits = data.data.hits.hits;
+                var stateType, stateData;
+
+                if (!data.data.hits.hits.length) {
+                    return $q.reject('can not resolve state');
+                } else {
+                    stateType = hits[0]._type;
+                    stateData = hits[0]._source;
+                }
+
+                if (stateType === 'category') {
+                    return {
+                        data: {
+                            url: urlToResolve,
+                            stateName: 'categories',
+                            stateParams: {
+                                categoryId: stateData.id
+                            }
+                        }
+                    };
+                } else if (stateType === 'product') {
+                    return {
+                        data: {
+                            url: urlToResolve,
+                            stateName: 'product',
+                            stateParams: {
+                                categoryId: getCurrentCategoryId(stateData.routes, urlToResolve),
+                                productId: stateData.id
+                            }
+                        }
+                    };
+                }
             });
     };
 });
@@ -38,13 +104,11 @@ sofa.define('sofa.StateResolver', function ($q, $http, configService) {
  *
  * @description
  * `sofa.StateResolverService` is a service to resolve human readable URLs into states that
- * can be dealed with on an application level.
+ * can be dealt with on an application level.
  */
 sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
         stateResolver   = new sofa.StateResolver($q, $http, configService),
-        storeCode       = configService.get('storeCode'),
-        useShopUrls     = configService.get('useShopUrls'),
         states          = {};
 
     /**
@@ -78,31 +142,23 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     *        //do something with state
     *    })
     *
-    * @param {object} deferred The deferred carrying the resolved state.
+    * @param {url} The URL to be resolved.
+     *
+    * @return {promise} The deferred carrying the resolved state.
     */
     self.resolveState = function (url) {
         var deferred = $q.defer();
-
-        // in legacy mode we need to remove the leading slash that comes
-        // from the url because on the serverside we are only dealing with
-        // keys (e.g. some-crazy-product) and not with paths.s
-        if (!useShopUrls && url.charAt(0) === '/') {
-            url = url.substr(1);
-        }
 
         if (states[url]) {
             deferred.resolve(states[url]);
         }
         else {
-            stateResolver({
-                storeCode: storeCode,
-                url: url
-            })
-            .then(function (response) {
-                deferred.resolve(response.data);
-            }, function () {
-                deferred.reject();
-            });
+            stateResolver(url)
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                }, function () {
+                    deferred.reject();
+                });
         }
 
         return deferred.promise;
