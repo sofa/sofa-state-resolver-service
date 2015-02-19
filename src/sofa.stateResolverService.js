@@ -7,13 +7,11 @@
  *
  * @description
  * `sofa.StateResolverService` is a service to resolve human readable URLs into states that
- * can be dealed with on an application level.
+ * can be dealt with on an application level.
  */
 sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     var self            = {},
         stateResolver   = new sofa.StateResolver($q, $http, configService),
-        storeCode       = configService.get('storeCode'),
-        useShopUrls     = configService.get('useShopUrls'),
         states          = {};
 
     /**
@@ -47,31 +45,23 @@ sofa.define('sofa.StateResolverService', function ($q, $http, configService) {
     *        //do something with state
     *    })
     *
-    * @param {object} deferred The deferred carrying the resolved state.
+    * @param {url} The URL to be resolved.
+     *
+    * @return {promise} The deferred carrying the resolved state.
     */
     self.resolveState = function (url) {
         var deferred = $q.defer();
-
-        // in legacy mode we need to remove the leading slash that comes
-        // from the url because on the serverside we are only dealing with
-        // keys (e.g. some-crazy-product) and not with paths.s
-        if (!useShopUrls && url.charAt(0) === '/') {
-            url = url.substr(1);
-        }
 
         if (states[url]) {
             deferred.resolve(states[url]);
         }
         else {
-            stateResolver({
-                storeCode: storeCode,
-                url: url
-            })
-            .then(function (response) {
-                deferred.resolve(response.data);
-            }, function () {
-                deferred.reject();
-            });
+            stateResolver(url)
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                }, function () {
+                    deferred.reject();
+                });
         }
 
         return deferred.promise;
